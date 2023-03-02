@@ -46,7 +46,7 @@ connection.connect(function(err){
     connection.query("SELECT * FROM Login_web WHERE password =? AND username=?",[password,username],(err,results)=>{
       if(err) return res.status(500).json({msg:err});
       else{
-        if(results.length > 0){
+        if(results.password===req.body.password){
           res.send(results);
         }else{
           return res.send({message: "Wrong Username or Password"});
