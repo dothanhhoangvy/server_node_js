@@ -45,10 +45,10 @@ connection.connect(function(err){
     // res.setHeader("/register");
     connection.query("SELECT * FROM Login_web WHERE password =? AND username=?",[password,username],(err,results)=>{
       if(err) return res.status(500).json({msg:err});
-      if(result===null){
+      if(results===null){
         return res.status(403).json("Either Username incorrect");
     }
-    if(result.password===req.body.password)
+    if(results.password===req.body.password)
     {
        let token = jwt.sign({username:req.body.username},config.key,{
             expiresIn:"24h" //expire 4h
