@@ -55,7 +55,7 @@ connection.connect(function(err){
     }
     )
   });
-  
+
 app.get('/home/data', (req, res) => {
   connection.query("SELECT DISTINCT * FROM Car_one;", (err, results, fields) => {
     if(err) throw err;
@@ -66,6 +66,14 @@ app.get('/home/data', (req, res) => {
 
   app.get('/home/data/tempt', (req, res) => {
     connection.query("SELECT DISTINCT temperature FROM Car_one;", (err, results, fields) => {
+      if(err) throw err;
+       res.json(results[0]);
+
+    });
+  });
+
+  app.get('/home/data/Mileage', (req, res) => {
+    connection.query("SELECT DISTINCT Mileage FROM Car_one;", (err, results, fields) => {
       if(err) throw err;
        res.json(results[0]);
 
