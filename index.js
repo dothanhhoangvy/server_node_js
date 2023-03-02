@@ -45,13 +45,24 @@ connection.connect(function(err){
     // res.setHeader("/register");
     connection.query("SELECT * FROM Login_web WHERE password =? AND username=?",[password,username],(err,results)=>{
       if(err) return res.status(500).json({msg:err});
-      else{
-        if(results.length > 0){
-          res.send(results);
-        }else{
-          return res.send({message: "Wrong Username or Password"});
-        }
-      }
+      if(result===null){
+        return res.status(403).json("Either Username incorrect");
+    }
+    if(result.password===req.body.password)
+    {
+       let token = jwt.sign({username:req.body.username},config.key,{
+            expiresIn:"24h" //expire 4h
+        });
+
+        //here we implement the JWT token functionality
+        res.json({
+            token: token,
+            msg:"success",
+        });
+    }
+    else{
+        return res.status(403).json("Password is incorrect");
+    }
     }
     )
   });
