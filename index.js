@@ -43,7 +43,7 @@ connection.connect(function(err){
     var password=req.body.password;
     var username=req.body.username;
     // res.setHeader("/register");
-    connection.query("SELECT * FROM Login_web WHERE password =? AND username=?",[password,username],(err,results)=>{
+    connection.query("SELECT * FROM Login_web WHERE password =? AND username=? VALUES (?)",[password,username],(err,results)=>{
       if(err) return res.status(500).json({msg:err});
       else{
         if(results.length > 0){
