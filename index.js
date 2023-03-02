@@ -49,7 +49,7 @@ connection.connect(function(err){
         if(results.password===req.body.password){
           res.send(results);
         }else{
-          return res.send({message: "Wrong Username or Password"});
+          return res.status(403).json({message: "Wrong Username or Password"});
         }
       }
     }
