@@ -39,20 +39,23 @@ connection.connect(function(err){
 //   )
 // });
 
-// app.post('/login',encoder,function (req, res) {
-//     var password=req.body.password;
-//     var username=req.body.username;
-//     // res.setHeader("/register");
-//     connection.query("select * from Login_web where Password =? and User=?) values (?,?)",[password,username],(err,results)=>{
-      
-//          if(results) 
-//          {
-//           res.send(results);
-//          }else
-//          res.send("no user");
-//     }
-//     )
-//   });
+  app.post('/login',encoder,function (req, res) {
+    var password=req.body.password;
+    var username=req.body.username;
+    // res.setHeader("/register");
+    connection.query("SELECT * FROM Login_web WHERE password =? AND username=?",[password,username],(err,results)=>{
+      if(err) return res.status(500).json({msg:err});
+      else{
+        if(results.length > 0){
+          res.send(results);
+        }else{
+          return res.send({message: "Wrong Username or Password"});
+        }
+      }
+    }
+    )
+  });
+  
 app.get('/home/data', (req, res) => {
   connection.query("SELECT DISTINCT * FROM Car_one;", (err, results, fields) => {
     if(err) throw err;
