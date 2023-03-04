@@ -39,10 +39,10 @@ connection.connect(function(err){
 // });
 
   app.post('/login',encoder,function (req, res) {
-    var password=req.body.password;
     var username=req.body.username; 
+    var password=req.body.password;
     // res.setHeader("/register");
-    connection.query("SELECT * FROM Login_web WHERE username=? AND password=?",[password,username],(err,results)=>{
+    connection.query("SELECT * FROM Login_web WHERE username=? AND password=?",[username,password],(err,results)=>{
       if(err) {
         res.send(JSON.stringify({success:false,message:err}))}
       else{
