@@ -4,7 +4,7 @@ const app = express();
 const bodyparser=require("body-parser");
 const cors=require("cors");
 // const Encoding=require("encoding");
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 var encoder=bodyparser.urlencoded();
 app.use(express.json());
 app.use(cors());
@@ -46,8 +46,11 @@ connection.connect(function(err){
       if(err) {
         return res.send(JSON.stringify({success:false,message:err}));
       }else{
+        if(results.length>0){
         return res.send(JSON.stringify({success:true,message:results}));
-      }
+      }else{
+        res.send(JSON.stringify({success:false,message:"Wrong Password or Username"}));
+      }}
     });
   });
 
