@@ -4,9 +4,8 @@ const app = express();
 const bodyparser=require("body-parser");
 const cors=require("cors");
 // const Encoding=require("encoding");
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 var encoder=bodyparser.urlencoded();
-
 app.use(express.json());
 app.use(cors());
 // app.use(Encoding());
@@ -41,24 +40,14 @@ connection.connect(function(err){
 
   app.post('/login',encoder,function (req, res) {
     var password=req.body.password;
-    var username=req.body.username;
+    var username=req.body.username; 
     // res.setHeader("/register");
-    connection.query("SELECT * FROM Login_web WHERE password =? AND username=?",[password,username],(err,results)=>{
-      if(err) return res.status(500).json({msg:err});
-      if(results===null){
-        return res.status(403).json("Either Username incorrect");
-    }
-    if(results.password===req.body.password)
-    {
-        //here we implement the JWT token functionality
-        res.json({
-
-            msg:"success",
-        });
-    }
-    else{
-        return res.status(403).json("Password is incorrect");
-    }
+    connection.query("SELECT * FROM Login_web WHERE username=? AND password=?",[password,username],(err,results)=>{
+      if(err) {
+        res.send(JSON.stringify({success:false,message:err}))}
+      else{
+        res.send(JSON.stringify({success:true,message:results}))
+      }
     }
     )
   });
