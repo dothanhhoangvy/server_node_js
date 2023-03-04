@@ -44,12 +44,11 @@ connection.connect(function(err){
     // res.setHeader("/register");
     connection.query("SELECT * FROM Login_web WHERE username=? AND password=?",[username,password],(err,results)=>{
       if(err) {
-        res.send(JSON.stringify({success:false,message:err}))}
-      else{
-        res.send(JSON.stringify({success:true,message:results}))
+        return res.send(JSON.stringify({success:false,message:err}));
+      }else{
+        return res.send(JSON.stringify({success:true,message:results}));
       }
-    }
-    )
+    });
   });
 
 app.get('/home/data', (req, res) => {
