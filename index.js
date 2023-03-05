@@ -47,7 +47,7 @@ connection.connect(function(err){
         return res.send(JSON.stringify({success:false,message:err}));
       }else{
         if(results.length>0){
-        return res.send(JSON.stringify({success:true,username:results}));
+        return res.send(JSON.stringify({success:true,message:results}));
       }else{
         res.send(JSON.stringify({success:false,message:"Wrong Password or Username"}));
       }}
